@@ -1,0 +1,12 @@
+sampleapp.py
+server.py
+create.py
+lib/
+lib64
+bin/
+include/
+lib64/
+share/
+static/
+pyvenv.cfg
+__pycache__/
