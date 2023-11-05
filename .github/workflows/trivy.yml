@@ -5,7 +5,7 @@ on:
     branches:
       - main
   workflow_run:
-    workflows: ["Pylint", "gitleaks", "codeql"]
+    workflows: ["Pylint", "gitleaks", "CodeQL"]
     types:
       - completed
 
