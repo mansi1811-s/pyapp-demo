@@ -3,14 +3,13 @@ name: "CodeQL"
 on:
   push:
     branches: [ "main" ]
-    paths:
-      - new.py
+    # paths:
+    #   - new.py
     # paths-ignore:
     #   - 'lib/**.py'
   pull_request:
     branches: [ "main" ]
-    paths:
-      - new.py 
+ 
   schedule:
     - cron: '30 18 * * 2'
   workflow_dispatch:
