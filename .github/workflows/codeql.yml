@@ -2,15 +2,13 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
     paths:
       - new.py
     # paths-ignore:
     #   - 'lib/**.py'
   pull_request:
-    branches: [ "master" ]
-    # paths-ignore:
-    #   - 'lib/**.py'
+    branches: [ "main" ]
     paths:
       - new.py 
   schedule:
