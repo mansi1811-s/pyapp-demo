@@ -14,7 +14,7 @@ aws_access_key_id =  os.environ.get('AWS_ACCESS_KEY')
 aws_secret_access_key =  os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 
-client = boto3.client('s3', aws_access_key_id=aws_access_key_id, 
+client = boto3.client('s3', aws_access_key_id=aws_access_key_id,
                       aws_secret_access_key=aws_secret_access_key)
 
 
@@ -90,7 +90,7 @@ def delete_bucket():
     del_buck = request.form['del_buck']# Retrieve the value of del_buck from the HTML form
     try:
         # s3 = boto3.resource("s3") # pylint: disable=invalid-name
-        s3= boto3.resource('s3', aws_access_key_id=aws_access_key_id, 
+        s3= boto3.resource('s3', aws_access_key_id=aws_access_key_id,
                            aws_secret_access_key=aws_secret_access_key)
         bucket = s3.Bucket(del_buck)
         bucket.objects.all().delete()
@@ -188,7 +188,7 @@ def get_objects():
     """
     bucket_name = request.form['bucket_name']
     # s3 = boto3.resource('s3') # pylint: disable=invalid-name
-    s3= boto3.resource('s3', aws_access_key_id=aws_access_key_id, 
+    s3= boto3.resource('s3', aws_access_key_id=aws_access_key_id,
                        aws_secret_access_key=aws_secret_access_key)
     my_bucket = s3.Bucket(bucket_name)
     obj = []
@@ -206,13 +206,5 @@ def get_objects():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=("5000"), debug=True)
-
-
-# if __name__ == "__main__":
-#    app.run(debug=True)
-
-# if __name__ == "__main__":
-#    app.run(port=("5000"), debug=True)
-
 
 # End
