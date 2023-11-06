@@ -38,6 +38,17 @@ jobs:
     - name: Scan Docker Image for Vulnerabilities with Trivy
       run: |
         trivy image --severity=HIGH,CRITICAL --exit-code 1 new:v1
+          
+    - name: Convert Trivy Results to SARIF
+      run: |
+        trivy image --severity=HIGH,CRITICAL -f sarif new:v1 > trivy-results.sarif
+      shell: bash
+
+    - name: Upload SARIF Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: trivy-results
+        path: trivy-results.sarif
         
     - name: Push Docker Image
       run: |
