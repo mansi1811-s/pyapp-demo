@@ -3,10 +3,6 @@ name: "CodeQL"
 on:
   push:
     branches: [ "main" ]
-    # paths:
-    #   - new.py
-    # paths-ignore:
-    #   - 'lib/**.py'
   pull_request:
     branches: [ "main" ]
  
