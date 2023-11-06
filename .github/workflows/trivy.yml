@@ -43,12 +43,14 @@ jobs:
       run: |
         trivy image --severity=HIGH,CRITICAL -f sarif new:v1 > trivy-results.sarif
       shell: bash
+      if: always()
 
     - name: Upload SARIF Report
       uses: actions/upload-artifact@v2
       with:
         name: trivy-results
         path: trivy-results.sarif
+      if: always()
         
     - name: Push Docker Image
       run: |
