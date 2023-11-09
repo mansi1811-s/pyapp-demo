@@ -89,6 +89,6 @@ jobs:
         from: Mansi Singh
         subject: SARIF Report for trivy scanning
         body: Please find the trivy report attached.
-        attachments: sarif-report/trivy-results.sarif
+        attachments: trivy-results/trivy-results.sarif
       if: always()
 
