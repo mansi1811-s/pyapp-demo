@@ -2,17 +2,16 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ "main" ]
-    # paths:
-    #   - new.py
-    # paths-ignore:
-    #   - 'lib/**.py'
+    branches:
+      - codeql-branch
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - codeql-branch
+  workflow_dispatch:
  
   schedule:
     - cron: '30 18 * * 2'
-  workflow_dispatch:
+ 
 
 jobs:
   analyze:
