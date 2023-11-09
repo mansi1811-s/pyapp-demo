@@ -67,7 +67,7 @@ def create_folder():
     try:
         bucket_name = request.form['bucket_name']
         directory_name = request.form['directory_name']
-        client.put_object(Bucket=bucket_name, Key=(directory_name + '/'))  # pylint: disable=superfluous-parens
+        client.put_object(Bucket=bucket_name, Key=(directory_name + '/'))  
         return render_template('status.html', message='Folder created successfully')
     except ClientError as error:
         message = error.response["Error"]['Code']
@@ -80,7 +80,7 @@ def delete_bucket():
     """
     del_buck = request.form['del_buck']# Retrieve the value of del_buck from the HTML form
     try:
-        s3 = boto3.resource("s3") # pylint: disable=invalid-name
+        s3 = boto3.resource("s3") 
         bucket = s3.Bucket(del_buck)
         bucket.objects.all().delete()
         bucket.delete()
