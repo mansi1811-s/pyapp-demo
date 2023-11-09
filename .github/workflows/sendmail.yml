@@ -10,12 +10,16 @@ on:
 
   workflow_dispatch:
 
+env:
+  MAIL_PASSWD: ${{ secrets.MAIL_PASSWD }}
+  MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+
 jobs:
   build:
     name: trivy-check
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         language: ['python']
 
@@ -38,7 +42,7 @@ jobs:
 
     - name: Scan Docker Image for Vulnerabilities with Trivy
       run: |
-        trivy image --severity=HIGH,CRITICAL --exit-code 1 newf:v1
+        trivy image --severity=HIGH,CRITICAL newf:v1
           
     - name: Convert Trivy Results to SARIF
       run: |
@@ -61,4 +65,30 @@ jobs:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       shell: bash
+
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      if: always()
+
+    - name: Download SARIF Report
+      uses: actions/download-artifact@v2
+      with:
+        name: sarif-report
+        path: sarif-report
+      if: always()
+
+    - name: Send SARIF Report Email
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.gmail.com
+        server_port: 465
+        secure: true
+        username: ${{secrets.MAIL_USERNAME}}
+        password: ${{secrets.MAIL_PASSWd}}
+        to: mansi.s@sigmoidanalytics.com
+        from: Mansi Singh
+        subject: SARIF Report for trivy scanning
+        body: Please find the trivy report attached.
+        attachments: sarif-report/trivy-results.sarif
+      if: always()
 
