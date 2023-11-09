@@ -1,4 +1,4 @@
-name: trivy-check
+name: trivy-send-mail
 
 on:
   push:
