@@ -1,5 +1,13 @@
 name: gitleaks
-on: [pull_request, push, workflow_dispatch]
+on:
+  push:
+    branches:
+      - mansi1811-s-patch-2
+  pull_request:
+    branches:
+      - mansi1811-s-patch-2
+  workflow_dispatch:
+    
 jobs:
   scan:
     name: gitleaks
