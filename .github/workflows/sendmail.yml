@@ -57,19 +57,6 @@ jobs:
         path: trivy-results.sarif
       if: always()
         
-    - name: Push Docker Image
-      run: |
-        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        docker push mansi1811/newf:v1
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      shell: bash
-
-    - name: Checkout repository
-      uses: actions/checkout@v2
-      if: always()
-
     - name: Download SARIF Report
       uses: actions/download-artifact@v2
       with:
