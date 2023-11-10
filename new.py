@@ -27,9 +27,9 @@ def listing():
 
 @app.route('/create_bucket', methods=['POST'])
 def create_bucket():
-    """
-    Create a new S3 bucket
-    """
+    # """
+    # Create a new S3 bucket
+    # """
     bucket_name = request.form['bucket_name']# Retrieve the value of bucket_name from the HTML form
     try:
         client.create_bucket(
