@@ -1,5 +1,6 @@
 # pylint: disable=E0401
 """ Python flask app for s3 Management """
+import os
 from flask import Flask, render_template, request
 import boto3
 import botocore
@@ -8,6 +9,14 @@ from botocore.exceptions import ClientError
 client = boto3.client('s3')
 
 app = Flask(__name__)
+
+aws_access_key_id =  os.environ.get('AWS_ACCESS_KEY')
+aws_secret_access_key =  os.environ.get('AWS_SECRET_ACCESS_KEY')
+
+
+client = boto3.client('s3', aws_access_key_id=aws_access_key_id,
+                      aws_secret_access_key=aws_secret_access_key)
+
 
 @app.route("/")
 def home():
@@ -80,7 +89,9 @@ def delete_bucket():
     """
     del_buck = request.form['del_buck']# Retrieve the value of del_buck from the HTML form
     try:
-        s3 = boto3.resource("s3") # pylint: disable=invalid-name
+        # s3 = boto3.resource("s3") # pylint: disable=invalid-name
+        s3= boto3.resource('s3', aws_access_key_id=aws_access_key_id,
+                           aws_secret_access_key=aws_secret_access_key)
         bucket = s3.Bucket(del_buck)
         bucket.objects.all().delete()
         bucket.delete()
@@ -176,7 +187,9 @@ def get_objects():
     List objects in a bucket
     """
     bucket_name = request.form['bucket_name']
-    s3 = boto3.resource('s3') # pylint: disable=invalid-name
+    # s3 = boto3.resource('s3') # pylint: disable=invalid-name
+    s3= boto3.resource('s3', aws_access_key_id=aws_access_key_id,
+                       aws_secret_access_key=aws_secret_access_key)
     my_bucket = s3.Bucket(bucket_name)
     obj = []
     try:
@@ -193,4 +206,5 @@ def get_objects():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=("5000"))
+
 
